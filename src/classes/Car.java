@@ -5,12 +5,12 @@ import java.util.UUID;
 
 public class Car {
 
-    private HashMap info = new HashMap();
+    private HashMap<String, String> info = new HashMap<String, String>();
 
     public Car(String brand, String model, String trim, String fuel, String color, String year, String condition,
             String transmission, String range, String rangeType, String engineSize, String cylinders, String price) {
 
-        info.put("id", UUID.randomUUID());
+        info.put("id", UUID.randomUUID().toString());
         info.put("brand", brand);
         info.put("model", model);
         info.put("trim", trim);
@@ -26,12 +26,16 @@ public class Car {
         info.put("price", price);
     }
 
-    public HashMap getInfo() {
+    public HashMap<String, String> getInfo() {
         return info;
     }
 
     public String getInfo(String key) {
         return info.get(key).toString();
+    }
+
+    public String getId() {
+        return info.get("id");
     }
 
     public void setInfo(String key, String value) {
