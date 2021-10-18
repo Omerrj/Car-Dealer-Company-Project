@@ -1,6 +1,5 @@
 package classes;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class Car {
@@ -19,8 +18,6 @@ public class Car {
     private double cylinders;
     private double price;
     private String transmission;
-
-    private HashMap<String, String> info = new HashMap<String, String>();
 
     public Car() {
         this.id = UUID.randomUUID().toString();
@@ -75,10 +72,6 @@ public class Car {
         return id;
     }
 
-    public HashMap<String, String> getInfo() {
-        return info;
-    }
-
     public String getModel() {
         return model;
     }
@@ -110,7 +103,7 @@ public class Car {
     public String getAllInfo() {
 
         return brand + " " + model + " " + trim + " " + color + " " + condition + " " + cylinders + " Cylinders "
-                + engineSize + " L " + fuel + " " + price + "$ " + range + rangeType + " " + transmission;
+                + engineSize + " L " + fuel + " " + price + "$" + range + rangeType + " " + transmission;
     }
 
     // Setters
@@ -140,10 +133,6 @@ public class Car {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setInfo(HashMap<String, String> info) {
-        this.info = info;
     }
 
     public void setModel(String model) {
