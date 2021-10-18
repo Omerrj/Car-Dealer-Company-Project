@@ -1,8 +1,9 @@
 package classes;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Car {
+public class Car implements Serializable {
 
     private String id;
     private String brand;
@@ -165,7 +166,7 @@ public class Car {
 
     @Override
     public String toString() {
-
-        return getAllInfo();
+        return brand + " " + model + " " + trim + " " + color + " " + condition + " " + cylinders + " " + engineSize
+                + " " + fuel + " " + price + " " + range + " " + rangeType + " " + transmission;
     }
 }

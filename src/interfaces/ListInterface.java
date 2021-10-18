@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.io.IOException;
+
 import classes.Car;
 
 public interface ListInterface {
@@ -7,8 +9,8 @@ public interface ListInterface {
 
     abstract void getList();
 
-    abstract void addToList(Car car);
+    abstract void addToList(Car car) throws IOException;
 
-    abstract void removeFromList(String id);
+    abstract void removeFromList(String id) throws IOException;
 
 }
