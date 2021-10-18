@@ -1,6 +1,10 @@
 # Car-Dealer-Company-Project
 Team Project for ACP Subject using java language
 
+## Description
+This project is for a car dealer company, through which you can sell, buy, rent and order cars.
+The Customers can be people and other car companies.
+
 ## Requirements
 ### Company
 - Read, Add, Remove and Edit cars in list of available cars for sale
@@ -25,3 +29,4 @@ Team Project for ACP Subject using java language
 - Omer Sabah 
 - Raman Farhad
 - Usama Abubakr
+- Fatima Sirwan
