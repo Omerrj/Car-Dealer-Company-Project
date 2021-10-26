@@ -1,4 +1,4 @@
-package classes;
+package model;
 
 import java.io.*;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 import interfaces.ListInterface;
 
 public class CarForSale implements ListInterface {
-    static List<Car> list = new LinkedList<Car>();
+    public static List<Car> list = new LinkedList<Car>();
 
     public static void GetList() {
         System.out.println("List of cars for sale");
@@ -34,23 +34,6 @@ public class CarForSale implements ListInterface {
         return false;
     }
 
-    public static void load() throws IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream("data/saleList.txt");
-        ObjectInputStream in = new ObjectInputStream(fin);
-        list = (List<Car>) in.readObject();
-
-        in.close();
-    }
-
-    public static void save() throws IOException {
-
-        FileOutputStream fout = new FileOutputStream("data/saleList.txt");
-        ObjectOutputStream out = new ObjectOutputStream(fout);
-        out.writeObject(list);
-
-        out.close();
-    }
-
     public void getList() {
         System.out.println("List of cars for sale");
 
@@ -60,15 +43,14 @@ public class CarForSale implements ListInterface {
     }
 
     @Override
-    public void addToList(Car car) throws IOException {
+    public void addToList(Car car) {
         list.add(car);
         System.out.println("Car added to the sale list " + "( " + car.toString() + " )");
 
-        save();
     }
 
     @Override
-    public void removeFromList(String id) throws IOException {
+    public void removeFromList(String id) {
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
@@ -78,6 +60,5 @@ public class CarForSale implements ListInterface {
 
         }
 
-        save();
     }
 }

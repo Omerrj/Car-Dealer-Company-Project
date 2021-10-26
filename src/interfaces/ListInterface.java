@@ -2,7 +2,7 @@ package interfaces;
 
 import java.io.IOException;
 
-import classes.Car;
+import model.Car;
 
 public interface ListInterface {
     abstract Object getCar(String id);
