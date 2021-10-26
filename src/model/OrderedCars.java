@@ -1,16 +1,13 @@
-package classes;
+package model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.*;
 
 import interfaces.ListInterface;
 
 public class OrderedCars implements ListInterface {
-    static List<Car> list = new LinkedList<Car>();
+    public static List<Car> list = new LinkedList<Car>();
 
     public OrderedCars() {
         System.out.println("List of Ordered Cars Created");
@@ -33,24 +30,6 @@ public class OrderedCars implements ListInterface {
         return false;
     }
 
-    public static void load() throws IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream("data/orderedList.txt");
-        ObjectInputStream in = new ObjectInputStream(fin);
-        list = (List<Car>) in.readObject();
-
-        in.close();
-
-    }
-
-    public static void save() throws IOException {
-
-        FileOutputStream fout = new FileOutputStream("data/orderedList.txt");
-        ObjectOutputStream out = new ObjectOutputStream(fout);
-        out.writeObject(list);
-
-        out.close();
-    }
-
     @Override
     public void getList() {
         System.out.println("List of Ordered Cars");
@@ -65,8 +44,6 @@ public class OrderedCars implements ListInterface {
         list.add(car);
         System.out.println("Car Ordered " + "( " + car.toString() + " )");
 
-        save();
-
     }
 
     @Override
@@ -76,7 +53,6 @@ public class OrderedCars implements ListInterface {
                 list.remove(i);
         }
 
-        save();
     }
 
 }

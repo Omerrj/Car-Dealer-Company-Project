@@ -1,16 +1,14 @@
-package classes;
+package model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.util.*;
 
+import controller.DataBaseController;
 import interfaces.ListInterface;
 
 public class CarForRent implements ListInterface {
-    static List<Car> list = new LinkedList<Car>();
+    public static List<Car> list = new LinkedList<Car>();
 
     public CarForRent() {
         System.out.println("List of cars for rent created");
@@ -34,23 +32,6 @@ public class CarForRent implements ListInterface {
         return false;
     }
 
-    public static void load() throws IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream("data/rentList.txt");
-        ObjectInputStream in = new ObjectInputStream(fin);
-        list = (List<Car>) in.readObject();
-
-        in.close();
-    }
-
-    public static void save() throws IOException {
-
-        FileOutputStream fout = new FileOutputStream("data/rentList.txt");
-        ObjectOutputStream out = new ObjectOutputStream(fout);
-        out.writeObject(list);
-
-        out.close();
-    }
-
     @Override
     public void getList() {
         System.out.println("List of cars for rent");
@@ -65,7 +46,6 @@ public class CarForRent implements ListInterface {
         list.add(car);
         System.out.println("Car added to the rent list " + "( " + car.toString() + " )");
 
-        save();
     }
 
     @Override
@@ -78,16 +58,18 @@ public class CarForRent implements ListInterface {
 
         }
 
-        save();
     }
 
     public void rentCar(String id) throws IOException {
 
         CarsRent.AddToList((Car) getCar(id));
-        CarsRent.save();
+
+        // TODO save should not be here
+        DataBaseController.saveToDatabase();
 
         System.out.println("Car added to the rented list " + "( " + getCar(id) + " )");
 
         removeFromList(id);
     }
+
 }
