@@ -1,22 +1,25 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 import controller.DataBaseController;
+import model.Car;
 import model.CarForSale;
 
 public class CarForSaleView {
 
-    static boolean resume = true;
-    static CarForSale carForSale = new CarForSale();
+    private static boolean resume = true;
+    private static CarForSale carForSale = new CarForSale();
 
     public static void run() throws IOException {
 
         System.out.println("Welcome to the Sale List!");
 
+        Scanner console = new Scanner(System.in);
         while (resume) {
-            Scanner console = new Scanner(System.in);
 
             System.out.println("Please choose what do you need?");
             System.out.println("1- See the list ");
@@ -26,17 +29,18 @@ public class CarForSaleView {
             int option = console.nextInt();
             switch (option) {
             case 1:
-                CarForSale.GetList();
+                showTheList(carForSale.getList());
                 break;
 
             case 2:
-                AddCarView.add();
+                AddCarView.run();
+                DataBaseController.saveToDatabase();
                 break;
 
             case 3:
-                CarForSale.GetList();
+                showTheList(carForSale.getList());
 
-                carForSale.removeFromList(CarForSale.list.get(RemoveCarView.remove()).getId());
+                carForSale.removeFromList(carForSale.getList().get(RemoveCarView.run()).getId());
                 DataBaseController.saveToDatabase();
 
                 break;
@@ -44,7 +48,19 @@ public class CarForSaleView {
             default:
                 break;
             }
-        }
 
+        }
+        console.close();
+
+    }
+
+    private static void showTheList(List<Car> list) {
+        System.out.println("List of Cars for sale:");
+
+        ListIterator<Car> iterator = (ListIterator<Car>) list.iterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.nextIndex() + 1 + "- " + iterator.next().toString());
+        }
     }
 }

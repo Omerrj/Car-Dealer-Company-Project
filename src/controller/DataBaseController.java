@@ -2,30 +2,44 @@ package controller;
 
 import model.*;
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DataBaseController {
 
+    private static List<List<Car>> database = new LinkedList<List<Car>>();
+
+    private static CarForSale carForSale = new CarForSale();
+    private static CarForInstallment carForInstallment = new CarForInstallment();
+    private static OrderedCars orderedCars = new OrderedCars();
+    private static CarForRent carForRent = new CarForRent();
+    private static CarsRent carsRent = new CarsRent();
+
     public static void saveToDatabase() throws IOException {
 
-        save(CarForSale.list, "data/saleList.txt");
-        save(CarForInstallment.list, "data/installmentList.txt");
-        save(OrderedCars.list, "data/orderedList.txt");
-        save(CarForRent.list, "data/rentList.txt");
-        save(CarsRent.list, "data/rentedList.txt");
+        database.add(carForSale.getList());
+        database.add(carForRent.getList());
+        database.add(carForInstallment.getList());
+        database.add(carsRent.getList());
+        database.add(orderedCars.getList());
+
+        save(database, "data/database.txt");
+
     }
 
     public static void loadDataBase() throws IOException, ClassNotFoundException {
 
-        load("saleList");
-        load("rentList");
-        load("orderedList");
-        load("rentedList");
-        load("installmentList");
+        load("database");
+
+        carForSale.setList(database.get(0));
+        carForRent.setList(database.get(1));
+        carForInstallment.setList(database.get(2));
+        carsRent.setList(database.get(3));
+        orderedCars.setList(database.get(4));
 
     }
 
-    private static void save(List list, String path) throws IOException {
+    private static void save(List<List<Car>> list, String path) throws IOException {
         FileOutputStream fIn = new FileOutputStream(path);
         ObjectOutputStream fOut = new ObjectOutputStream(fIn);
         fOut.writeObject(list);
@@ -34,34 +48,10 @@ public class DataBaseController {
     }
 
     private static void load(String path) throws IOException, ClassNotFoundException {
-        FileInputStream fin = new FileInputStream("data/" + path + ".txt");
+        FileInputStream fin = new FileInputStream("data/database.txt");
         ObjectInputStream in = new ObjectInputStream(fin);
 
-        switch (path) {
-        case "saleList":
-            CarForSale.list = (List<Car>) in.readObject();
-
-            break;
-        case "rentList":
-            CarForRent.list = (List<Car>) in.readObject();
-
-            break;
-        case "rentedList":
-            CarsRent.list = (List<Car>) in.readObject();
-
-            break;
-        case "orderedList":
-            OrderedCars.list = (List<Car>) in.readObject();
-
-            break;
-        case "Installment":
-            CarForInstallment.list = (List<Car>) in.readObject();
-
-            break;
-
-        default:
-            break;
-        }
+        database = (List<List<Car>>) in.readObject();
 
         in.close();
     }

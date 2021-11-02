@@ -8,50 +8,45 @@ import interfaces.ListInterface;
 
 public class CarsRent implements ListInterface {
 
-    public static List<Car> list = new LinkedList<Car>();
-
-    public static void GetList() {
-        System.out.println("List of rented cars (Total) : " + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + "-" + list.get(i).toString());
-        }
-    }
-
-    public static void AddToList(Car car) throws IOException {
-        list.add(car);
-        System.out.println("Car added to the rented list " + "( " + car.toString() + " )");
-
-    }
+    public List<Car> list = new LinkedList<Car>();
 
     @Override
-    public Object getCar(String id) {
+    public Optional<Car> getCar(String id) {
         for (int i = 0; i < list.size(); i++) {
             Car car = list.get(i);
             if (car.getId() == id)
-                return car;
+                return Optional.of(car);
         }
-        return false;
+        return Optional.empty();
     }
 
     @Override
-    public void getList() {
-        System.out.println("List of rented cars (Total) : " + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + 1 + "-" + list.get(i).toString());
-        }
+    public List<Car> getList() {
+        return list;
+    }
+
+    @Override
+    public void setList(List<Car> list) {
+        this.list = list;
+
     }
 
     @Override
     public void addToList(Car car) throws IOException {
         list.add(car);
-        System.out.println("Car added to the rented list " + "( " + car.toString() + " )");
-
     }
 
     @Override
-    public void removeFromList(String id) throws IOException {
-        System.out.println("Car removed from the rented list " + "( " + getCar(id) + " )");
-        list.remove(getCar(id));
+    public Optional<Car> removeFromList(String id) throws IOException {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+
+                return Optional.of(list.remove(i));
+            }
+
+        }
+
+        return Optional.empty();
 
     }
 
