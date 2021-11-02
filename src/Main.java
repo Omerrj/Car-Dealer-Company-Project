@@ -1,5 +1,4 @@
-import model.*;
-import view.CarForSaleView;
+import view.MainView;
 
 import java.io.*;
 
@@ -11,7 +10,8 @@ public class Main {
 
                 DataBaseController.loadDataBase();
 
-                CarForSaleView.run();
+                MainView mainView = new MainView();
+                mainView.run();
 
         }
 

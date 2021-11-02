@@ -8,61 +8,63 @@ import controller.DataBaseController;
 import interfaces.ListInterface;
 
 public class CarForRent implements ListInterface {
-    public static List<Car> list = new LinkedList<Car>();
+    private List<Car> list = new LinkedList<Car>();
 
     public CarForRent() {
-        System.out.println("List of cars for rent created");
+
     }
 
     public CarForRent(Car car) throws IOException {
-        this();
         addToList(car);
     }
 
     @Override
-    public Object getCar(String id) {
+    public Optional<Car> getCar(String id) {
         for (int i = 0; i < list.size(); i++) {
             Car car = list.get(i);
 
             if (car.getId() == id)
-                return car;
+                return Optional.of(car);
 
         }
 
-        return false;
+        return Optional.empty();
     }
 
     @Override
-    public void getList() {
-        System.out.println("List of cars for rent");
-        for (int i = 0; i < list.size(); i++) {
+    public List<Car> getList() {
+        return this.list;
+    }
 
-            System.out.println(i + 1 + "-" + list.get(i).toString());
-        }
+    @Override
+    public void setList(List<Car> list) {
+        this.list = list;
     }
 
     @Override
     public void addToList(Car car) throws IOException {
         list.add(car);
-        System.out.println("Car added to the rent list " + "( " + car.toString() + " )");
 
     }
 
     @Override
-    public void removeFromList(String id) throws IOException {
+    public Optional<Car> removeFromList(String id) throws IOException {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
-                System.out.println("Car removed from the rent list " + "( " + list.get(i).toString() + " )");
-                list.remove(i);
+
+                return Optional.of(list.remove(i));
             }
 
         }
 
+        return Optional.empty();
+
     }
 
+    // TODO take it to the controller
     public void rentCar(String id) throws IOException {
 
-        CarsRent.AddToList((Car) getCar(id));
+        // CarsRent.AddToList(getCar(id).get());
 
         // TODO save should not be here
         DataBaseController.saveToDatabase();
