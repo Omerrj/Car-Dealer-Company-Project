@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -24,9 +25,16 @@ public class MainView {
             System.out.println("4- Cars for installment ");
             System.out.println("5- Ordering Cars ");
 
-            option = Optional.ofNullable(console.nextInt());
+            try {
+                option = Optional.ofNullable(console.nextInt());
 
-        } while ((option.isEmpty()));
+            } catch (InputMismatchException e) {
+                ClearScreen.run();
+                System.out.println("Please select from available Options");
+                console.nextLine();
+            }
+
+        } while ((option.isEmpty() || !(option.get() instanceof Integer)));
 
         option.ifPresent((in) -> {
             ClearScreen.run();
@@ -35,7 +43,38 @@ public class MainView {
                 try {
                     CarForSaleView.run();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                break;
+
+            case 2:
+                try {
+                    CarForRentView.run();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 3:
+                try {
+                    CarsRentedView.run();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 4:
+                try {
+                    CarForInstallmentView.run();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 5:
+                try {
+                    OrderedCarsView.run();
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 break;

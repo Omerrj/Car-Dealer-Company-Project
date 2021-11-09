@@ -3,6 +3,7 @@ package view;
 import model.Car;
 import model.CarForSale;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AddCarView {
@@ -29,37 +30,51 @@ public class AddCarView {
             System.out.println("1- Diesel");
             System.out.println("2- Gasoline");
             System.out.println("3- Hybrid");
-            int fuelOption = console.nextInt();
+            try {
+                int fuelOption = console.nextInt();
 
-            switch (fuelOption) {
-            case 1:
-                fuel = "Diesel";
-                loop = false;
+                switch (fuelOption) {
+                case 1:
+                    fuel = "Diesel";
+                    loop = false;
 
-                break;
+                    break;
 
-            case 2:
-                fuel = "Gasoline";
-                loop = false;
+                case 2:
+                    fuel = "Gasoline";
+                    loop = false;
 
-                break;
+                    break;
 
-            case 3:
-                fuel = "Hybrid";
-                loop = false;
-                break;
+                case 3:
+                    fuel = "Hybrid";
+                    loop = false;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number");
+                console.nextLine();
             }
-
         }
 
         System.out.println("What is the Color?");
         String color = console.next();
 
-        System.out.println("What is the Creation Year?");
-        int year = console.nextInt();
+        int year;
+        while (true) {
+            try {
+                System.out.println("What is the Creation Year?");
+                year = console.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a number");
+                console.nextLine();
+            }
+        }
 
         System.out.println("What is the Car condition ? (Example: new , used: 2 parts)");
         String condition = console.next();
