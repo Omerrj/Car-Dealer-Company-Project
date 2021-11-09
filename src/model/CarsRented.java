@@ -6,7 +6,7 @@ import java.util.*;
 
 import interfaces.ListInterface;
 
-public class CarsRent implements ListInterface {
+public class CarsRented implements ListInterface {
 
     public List<Car> list = new LinkedList<Car>();
 

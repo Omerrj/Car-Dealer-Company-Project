@@ -13,7 +13,7 @@ public class DataBaseController {
     private static CarForInstallment carForInstallment = new CarForInstallment();
     private static OrderedCars orderedCars = new OrderedCars();
     private static CarForRent carForRent = new CarForRent();
-    private static CarsRent carsRent = new CarsRent();
+    private static CarsRented carsRent = new CarsRented();
 
     public static void saveToDatabase() throws IOException {
 

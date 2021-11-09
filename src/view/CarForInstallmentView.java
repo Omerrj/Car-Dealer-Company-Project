@@ -7,17 +7,16 @@ import java.util.Scanner;
 
 import controller.DataBaseController;
 import model.Car;
-import model.CarForSale;
+import model.CarForInstallment;
 import utils.ClearScreen;
 
-public class CarForSaleView {
-
+public class CarForInstallmentView {
     private static boolean resume = true;
-    private static CarForSale carForSale = new CarForSale();
+    private static CarForInstallment carForInstallment = new CarForInstallment();
 
     public static void run() throws IOException {
 
-        System.out.println("Welcome to the Sale List!");
+        System.out.println("Welcome to the installment cars List!");
 
         Scanner console = new Scanner(System.in);
         while (resume) {
@@ -31,7 +30,7 @@ public class CarForSaleView {
             switch (option) {
             case 1:
                 ClearScreen.run();
-                showTheList(carForSale.getList());
+                showTheList(carForInstallment.getList());
 
                 break;
 
@@ -42,9 +41,9 @@ public class CarForSaleView {
                 break;
 
             case 3:
-                showTheList(carForSale.getList());
+                showTheList(carForInstallment.getList());
 
-                carForSale.removeFromList(carForSale.getList().get(RemoveCarView.run()).getId());
+                carForInstallment.removeFromList(carForInstallment.getList().get(RemoveCarView.run()).getId());
                 DataBaseController.saveToDatabase();
 
                 break;
@@ -59,7 +58,7 @@ public class CarForSaleView {
     }
 
     private static void showTheList(List<Car> list) {
-        System.out.println("List of Cars for sale:");
+        System.out.println("List of Cars for installment:");
 
         ListIterator<Car> iterator = (ListIterator<Car>) list.iterator();
 
